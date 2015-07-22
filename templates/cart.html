@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
-
+<!-- 
     <table class="table table-striped">
         <thead>
         <tr>
@@ -38,9 +38,10 @@
             <td>$6.00</td>
         </tr>
         </tbody>
-    </table>
+    </table> -->
 
     <h3>Total: $27.00</h3>
+    <h1>{{ session['melon'] }}</h1>
 
     <a href="/checkout" class="btn btn-large btn-primary">Check Out</a>
 

@@ -61,10 +61,16 @@ def show_melon(id):
 def shopping_cart():
     """Display content of shopping cart."""
 
-    # TODO: Display the contents of the shopping cart.
-    #   - The cart is a list in session containing melons added
+    melon_cart = {}
+    if session.get('cart'):
+        for melon_id in session['cart']:
+            if melon_id in melon_cart:
+                melon_cart[melon_id][0] += 1
+            else:
+                melon = model.Melon.get_by_id(melon_id)
+                melon_cart[melon_id] = [1, melon.common_name, float(melon.price)]
 
-    return render_template("cart.html")
+    return render_template("cart.html", melon_cart=melon_cart)
 
 
 @app.route("/add_to_cart/<int:id>")
@@ -75,19 +81,14 @@ def add_to_cart(id):
     page and display a confirmation message: 'Successfully added to cart'.
     """
 
-    # TODO: Finish shopping cart functionality
-    #   - use session variables to hold cart list
-
     melon_id = id
 
-    if 'cart' in session:
+    if session.get('cart'):
         session['cart'].append(melon_id)
     else:
         session['cart'] = [melon_id]
     
     flash("The melon has been successfully added to your cart!")
-
-    # create a dictionary  key: melon, value: price, name, how many in cart
 
     return redirect(url_for('shopping_cart'))
 

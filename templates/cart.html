@@ -40,9 +40,13 @@
         </tbody>
     </table> -->
 
-    <h3>Total: $27.00</h3>
-    <h1>{{ session['melon'] }}</h1>
-
+    <!-- <h3>Total: $27.00</h3> -->
+    {% if session %}
+        {% for melon in cart %}
+            <p>{{melon}}</p>
+        {% endfor %}
+    {% endif %}
+    <br>
     <a href="/checkout" class="btn btn-large btn-primary">Check Out</a>
 
 {% endblock %}

@@ -11,6 +11,7 @@ from flask import Flask, render_template, redirect, flash, session, url_for
 import jinja2
 
 import model
+import json
 
 
 app = Flask(__name__)
@@ -70,7 +71,7 @@ def shopping_cart():
                 melon = model.Melon.get_by_id(melon_id)
                 melon_cart[melon_id] = [1, melon.common_name, float(melon.price)]
 
-    return render_template("cart.html", melon_cart=melon_cart)
+    return render_template("cart.html", melon_cart = melon_cart)
 
 
 @app.route("/add_to_cart/<int:id>")

@@ -14,8 +14,8 @@
             <div class="well">
                 <h3>Price per melon</h3>
                 <p> {{ display_melon.price_str() }} </p>
-                <form action="/add_to_cart/{{ display_melon.id }}">
-                    <input type='submit' id="submit-button" value="Add to Cart">
+                <form id="submit-button" action="/add_to_cart/{{ display_melon.id }}">
+                    <input type='submit' value="Add to Cart">
                 </form>
             </div>
         </div>
@@ -42,7 +42,10 @@
     // We're in the middle of writing the AJAX .get. We've done .get, and the url, then we have to pass the data to send to the server, and write the function for what we want to do with it when we get it back.
         function add_melon(evt){
             evt.preventDefault();
-            $.get("/add_to_cart/{{display_melon.id}}",)
+            $.get("/add_to_cart/{{display_melon.id}}", function(result) {
+                    var parsedJSON = JSON.parse(result);
+                    alert(parsedJSON.name + " has been added to your cart.");
+            })
         }
         $('#submit-button').on('submit', add_melon);
     </script>

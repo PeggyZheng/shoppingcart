@@ -7,7 +7,7 @@ Authors: Joel Burton, Christian Fernandez, Meggie Mahnken.
 """
 
 
-from flask import Flask, render_template, redirect, flash, session, url_for
+from flask import Flask, render_template, redirect, flash, session, request
 import jinja2
 
 import model
@@ -88,10 +88,14 @@ def add_to_cart(id):
         session['cart'].append(melon_id)
     else:
         session['cart'] = [melon_id]
-    
-    flash("The melon has been successfully added to your cart!")
 
-    return redirect(url_for('shopping_cart'))
+    current_melon = model.Melon.get_by_id(id)
+    cart_info = {
+        'name': current_melon.common_name
+    }
+
+
+    return json.dumps(cart_info)
 
 
 @app.route("/login", methods=["GET"])
